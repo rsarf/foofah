@@ -4,11 +4,11 @@ FROM python:2.7-slim
 # Set the working directory to /app
 WORKDIR .
 
-# Copy the current directory contents into the container at /app
-ADD . .
+# Copy the current directory contents ito the container at /app#ADD . .
 
 # Install any needed packages specified in requirements.txt
-RUN apt-get update \
+RUN sed -i 's|deb.debian.org|archive.debian.org|g; s|security.debian.org|archive.debian.org|g; /buster-updates/d' /etc/apt/sources.list \
+    && apt-get update \
     && apt-get install -y --no-install-recommends gcc musl-dev \
        build-essential \
        libboost-all-dev \
